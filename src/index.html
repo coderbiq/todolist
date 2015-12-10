@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoList" ng-cloak>
+	<head>
+		<title>My Todo List</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.css">
+	</head>
+	<body>
+
+		<div class="container">
+			<h1 class="page-header">我的待办事项 <small>计划是第一生产力</small></h1>
+
+			<form ng-controller="createCtrl" ng-submit="create()">
+				<div class="form-group">
+					<label class="control-label">任务颜色</label>
+					<select
+						class="form-control"
+						ng-model="newTask.color"
+						ng-options="color.code as color.name for color in colorOptions">
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label">任务标题</label>
+					<input name="content" class="form-control" ng-model="newTask.content" />
+				</div>
+				<button type="submit" class="btn btn-default" ng-disabled="newTask.content.length < 5">创建</button>
+			</form>
+
+			<h3>待办事项列表</h3>
+			<ul ng-controller="listCtrl">
+				<li
+					ng-repeat="task in tasks"
+					ng-class="'text-' + task.color"
+					ng-hide="task.isColse"
+					>
+					<input type="checkbox" ng-model="task.isColse">
+					{{task.content}}
+				</li>
+			</ul>
+		</div>
+
+		<script src="../node_modules/angular/angular.js"></script>
+		<script src="./script/app.js"></script>
+    </body>
+</html>
